@@ -23,13 +23,16 @@ class DNSServer:
                 self.cache: dict[CacheKey, CacheValue] = pickle.load(file)
 
             self.clear_expired()
-            print(
-                "-----Load from disk:-----\n" +
-                "\n".join((str(key) + " --- " + str(self.cache[key]) for key in self.cache)) +
-                "\n"
-            )
+            if len(self.cache) != 0:
+                print(
+                    "-----Load from disk:-----\n" +
+                    "\n".join((str(key) + " --- " + str(self.cache[key]) for key in self.cache)) +
+                    "\n"
+                )
         except IOError:
             self.cache: dict[CacheKey, CacheValue] = dict()
+
+        print("\n----Ready for work-----\n")
 
     def clear_expired(self) -> None:
         to_remove = list()
