@@ -63,10 +63,10 @@ class DNSServer:
                 key in self.cache and
                 self.cache[key].expiry_time > int(time.time())
         ):
-            self.debug_print("from cache\n" + f"type: {client_data.q.qtype}")
+            print("from cache\n" + f"type: {client_data.q.qtype}")
             return self.__from_cache(client_data)
         else:
-            self.debug_print("from server\n" + f"type: {client_data.q.qtype}")
+            print("from server\n" + f"type: {client_data.q.qtype}")
             try:
                 return self.__get_and_save_answer(req_bytes)
             except ForwarderTimeout:

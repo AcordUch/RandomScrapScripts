@@ -20,6 +20,8 @@ def main():
         server.save_cache()
         print("cache has been saved.")
 
+    input("\nPress Enter for exit...")
+
 
 if __name__ == "__main__":
     print("working...\n")
