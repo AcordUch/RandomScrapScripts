@@ -23,6 +23,26 @@ def get_list_of_friend(user_id: str, token: str, version: str) -> dict:
         raise KeyError(f"{make_request_and_parse(friends_list_request)['error']['error_msg']}")
 
 
+def get_message_list(user_id: str, token: str, version: str):
+    if not user_id.isdigit():
+        try:
+            user_id = get_user_id_by_name(user_id, token, version)
+        except KeyError:
+            raise ValueError("Input user doesn't exist!")
+
+    friends_list_request = (
+        f'https://api.vk.com/method/friends.get?user_id={user_id}'
+        f'&order=name&fields=nickname,domain'
+        f'&access_token={token}'
+        f'&v={version}'
+    )
+
+    try:
+        return make_request_and_parse(friends_list_request)["response"]
+    except KeyError:
+        raise KeyError(f"{make_request_and_parse(friends_list_request)['error']['error_msg']}")
+
+
 def get_user_id_by_name(name: str, token: str, version: str) -> str:
     request = (
         f"https://api.vk.com/method/users.get?user_id={name}"
