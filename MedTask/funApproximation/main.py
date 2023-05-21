@@ -56,14 +56,13 @@ def parse_input(file_name: str) -> (list[float], list[float]):
     x_data = list()
     y_data = list()
     x_y_data = list()
-    parse_regex = re.compile("([\d,]+) +(\d+)")
+    parse_regex = re.compile("([\d,]+)[ \t]+(\d+)")
     with open(file_name, mode="r") as file:
         for line in file.readlines():
             pair = parse_regex.search(line)
             x_y_data.append((float(pair.group(1).replace(",", ".")), float(pair.group(2).replace(",", "."))))
 
     x_y_data.sort(key=lambda e: e[0])
-    print(x_y_data)
     for pair in x_y_data:
         x_data.append(pair[0])
         y_data.append(pair[1])
